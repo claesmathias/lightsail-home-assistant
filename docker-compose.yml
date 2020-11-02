@@ -1,0 +1,85 @@
+version: '3.7'
+
+services:
+#
+# letsencrypt
+# This container sets up an Nginx webserver and reverse proxy with php support 
+# and a built-in letsencrypt client that automates free SSL server certificate generation and renewal processes. 
+# It also contains fail2ban for intrusion prevention.
+#
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: letsencrypt
+    privileged: true
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - EMAIL=${EMAIL}
+      - URL=${URL}
+      - SUBDOMAINS=${SUBDOMAINS}
+      - EXTRA_DOMAINS=${EXTRA_DOMAINS}
+      - DHLEVEL=2048
+      - TZ=${TZ}
+      - VALIDATION=http
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /home/centos/letsencrypt:/config
+      - /home/centos/lightsail-home-assistant/nginx:/config/nginx/site-confs/default
+    depends_on:
+      - "duckdns"
+      - "home-assitant"
+    networks:
+      - app_net
+    healthcheck:
+     test: ["CMD-SHELL", "curl -f --insecure https://localhost && echo 'OK'"]
+     interval: 5s
+     timeout: 2s
+     retries: 20
+
+#
+# duckdns
+# Duck DNS free dynamic DNS hosted on Amazon VPC.
+#
+  duckdns:
+    image: linuxserver/duckdns
+    container_name: duckdns
+    environment:
+      - TZ=${TZ}
+      - SUBDOMAINS=${DUCKDNS_SUBDOMAINS}
+      - TOKEN=${DUCKDNS_TOKEN}
+    volumes:
+      - /home/centos/duckdns/config:/config #optional
+    restart: unless-stopped
+
+#
+# home-assistant
+# Open source home automation that puts local control and privacy first. 
+# Powered by a worldwide community of tinkerers and DIY enthusiasts. 
+# Perfect to run on a Raspberry Pi or a local server. 
+#
+  home-assistant:
+    image: homeassistant/home-assistant:stable
+    container_name: home-assistant
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - /home/centos/home-assistant:/config
+    networks:
+      - app_net
+    restart: always
+
+#
+# network
+#
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+     driver: default
+     config:
+      - subnet: 172.20.0.0/16
