@@ -20,6 +20,11 @@ git clone https://github.com/claesmathias/lightsail-home-assistant.git
 
 # set docker-compose environment variables
 cat <<EOF >/home/centos/lightsail-home-assistant/.env
+HOST_IP=$(hostname --ip-address)
+EMAIL=mail@example.com
+URL=example.com
+SUBDOMAINS=www
+EXTRA_DOMAINS=
 DUCKDNS_SUBDOMAINS=subdomain.duckdns.org
 DUCKDNS_TOKEN=duck-dns-token
 TZ=Europe/Brussels
