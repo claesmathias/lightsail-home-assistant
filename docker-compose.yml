@@ -10,7 +10,6 @@ services:
   letsencrypt:
     image: linuxserver/letsencrypt
     container_name: letsencrypt
-    privileged: true
     restart: always
     cap_add:
       - NET_ADMIN
@@ -21,7 +20,6 @@ services:
       - URL=${URL}
       - SUBDOMAINS=${SUBDOMAINS}
       - EXTRA_DOMAINS=${EXTRA_DOMAINS}
-      - DHLEVEL=2048
       - TZ=${TZ}
       - VALIDATION=http
     ports:
