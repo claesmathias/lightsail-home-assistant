@@ -32,7 +32,7 @@ services:
       - /home/centos/lightsail-home-assistant/nginx:/config/nginx/site-confs/default
     depends_on:
       - "duckdns"
-      - "home-assitant"
+      - "home-assistant"
     networks:
       - app_net
     healthcheck:
