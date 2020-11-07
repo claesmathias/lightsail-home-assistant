@@ -52,6 +52,8 @@ services:
       - TOKEN=${DUCKDNS_TOKEN}
     volumes:
       - /home/centos/duckdns/config:/config #optional
+    ports:
+      - 8123:8123
     restart: unless-stopped
 
 #
