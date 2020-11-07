@@ -52,8 +52,6 @@ services:
       - TOKEN=${DUCKDNS_TOKEN}
     volumes:
       - /home/centos/duckdns/config:/config #optional
-    ports:
-      - 8123:8123
     restart: unless-stopped
 
 #
@@ -69,6 +67,8 @@ services:
       - TZ=${TZ}
     volumes:
       - /home/centos/home-assistant:/config
+    ports:
+      - 8123:8123
     networks:
       - app_net
     restart: always
