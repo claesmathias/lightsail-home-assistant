@@ -1,6 +1,6 @@
 #!/bin/bash
 # install the necessary tools
-sudo yum install docker git epel-release -y
+sudo yum install docker git unzip -y
 
 # add new group and add centos user
 sudo groupadd docker
@@ -29,12 +29,17 @@ DUCKDNS_TOKEN=duck-dns-token
 TZ=Europe/Brussels
 EOF
 
+wget "https://github.com/hacs/integration/releases/latest/download/hacs.zip" -P /home/centos/lightsail-home-assistant
+mkdir -p /home/centos/home-assistant/custom_components
+unzip /home/centos/lightsail-home-assistant/hacs.zip -d /home/centos/home-assistant/custom_components/hacs
+
 # download Amazoon Root CA for AWS IoT Core MQTT communication for things
 wget https://www.amazontrust.com/repository/AmazonRootCA1.pem -P /home/centos/home-assistant/
 cp /home/centos/lightsail-home-assistant/configuration.yaml /home/centos/home-assistant/
 
 # set permissions
 sudo chown -R centos:centos /home/centos/lightsail-home-assistant/
+sudo chown -R centos:centos /home/centos/home-assistant
 
 # set selinux permissions
 sudo chcon -Rt svirt_sandbox_file_t /home/centos
