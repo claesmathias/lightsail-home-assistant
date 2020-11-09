@@ -1,0 +1,66 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# Example configuration.yaml entry
+mqtt:
+  broker: *.amazonaws.com
+  port: 8883
+  client_id: home-assistant
+  certificate: AmazonRootCA1.pem
+  client_key: thing-private.pem.key
+  client_cert: thing-certificate.pem.crt
+
+# Example configuration.yaml entry
+light:
+  - platform: mqtt
+    name: "Office Light RGB"
+    state_topic: "office/rgb1/light/status"
+    command_topic: "office/rgb1/light/switch"
+    brightness_state_topic: "office/rgb1/brightness/status"
+    brightness_command_topic: "office/rgb1/brightness/set"
+    rgb_state_topic: "office/rgb1/rgb/status"
+    rgb_command_topic: "office/rgb1/rgb/set"
+    state_value_template: "{{ value_json.state }}"
+    brightness_value_template: "{{ value_json.brightness }}"
+    rgb_value_template: "{{ value_json.rgb | join(',') }}"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    
+# Example configuration.yaml entry
+sensor:
+  - platform: mqtt
+    state_topic: "home/bedroom/temperature"
+ 
+# Full example configuration.yaml entry
+climate:
+  - platform: mqtt
+    name: Study
+    modes:
+      - "off"
+      - "cool"
+      - "fan_only"
+    swing_modes:
+      - "on"
+      - "off"
+    fan_modes:
+      - "high"
+      - "medium"
+      - "low"
+    power_command_topic: "study/ac/power/set"
+    mode_command_topic: "study/ac/mode/set"
+    temperature_command_topic: "study/ac/temperature/set"
+    fan_mode_command_topic: "study/ac/fan/set"
+    swing_mode_command_topic: "study/ac/swing/set"
+    precision: 1.0
