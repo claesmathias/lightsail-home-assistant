@@ -30,7 +30,8 @@ TZ=Europe/Brussels
 EOF
 
 # download Amazoon Root CA for AWS IoT Core MQTT communication for things
-wget https://www.amazontrust.com/repository/AmazonRootCA1.pem -P /home/centos/lightsail-home-assistant/
+wget https://www.amazontrust.com/repository/AmazonRootCA1.pem -P /home/centos/home-assistant/
+cp /home/centos/lightsail-home-assistant/configuration.yaml /home/centos/home-assistant/
 
 # set permissions
 sudo chown -R centos:centos /home/centos/lightsail-home-assistant/
