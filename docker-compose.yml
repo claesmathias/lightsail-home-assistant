@@ -72,6 +72,16 @@ services:
     networks:
       - app_net
     restart: always
+   
+#
+# watchtower
+# A container-based solution for automating Docker container base image updates. 
+#
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --cleanup --schedule "0 1 * * sun"
 
 #
 # network
