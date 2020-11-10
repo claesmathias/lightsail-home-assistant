@@ -4,7 +4,7 @@ sudo yum install docker git unzip -y
 
 # add new group and add centos user
 sudo groupadd docker
-sudo usermod -aG docker centos
+sudo usermod -aG docker ec2-user
 
 # enable docker at startup
 sudo systemctl enable docker.service
@@ -19,7 +19,7 @@ cd /home/centos/
 git clone https://github.com/claesmathias/lightsail-home-assistant.git
 
 # set docker-compose environment variables
-cat <<EOF >/home/centos/lightsail-home-assistant/.env
+cat <<EOF >/home/ec2-user/lightsail-home-assistant/.env
 EMAIL=mail@example.com
 URL=example.com
 SUBDOMAINS=www
@@ -30,26 +30,26 @@ TZ=Europe/Brussels
 EOF
 
 # install Home Assistant Community Store (HACS)
-wget "https://github.com/hacs/integration/releases/latest/download/hacs.zip" -P /home/centos/lightsail-home-assistant
-mkdir -p /home/centos/home-assistant/custom_components
-unzip /home/centos/lightsail-home-assistant/hacs.zip -d /home/centos/home-assistant/custom_components/hacs
+wget "https://github.com/hacs/integration/releases/latest/download/hacs.zip" -P /home/ec2-user/lightsail-home-assistant
+mkdir -p /home/ec2-user/home-assistant/custom_components
+unzip /home/ec2-user/lightsail-home-assistant/hacs.zip -d /home/ec2-user/home-assistant/custom_components/hacs
 
 # download Amazoon Root CA for AWS IoT Core MQTT communication for things
-wget https://www.amazontrust.com/repository/AmazonRootCA1.pem -P /home/centos/home-assistant/
-cp /home/centos/lightsail-home-assistant/configuration.yaml /home/centos/home-assistant/
+wget https://www.amazontrust.com/repository/AmazonRootCA1.pem -P /home/ec2-user/home-assistant/
+cp /home/ec2-user/lightsail-home-assistant/configuration.yaml /home/ec2-user/home-assistant/
 
 # aws cli
 #alias aws='docker run --rm -it amazon/aws-cli'
 
 # set permissions
-sudo chown -R centos:centos /home/centos/lightsail-home-assistant/
-sudo chown -R centos:centos /home/centos/home-assistant
+sudo chown -R ec2-user:ec2-user /home/centos/lightsail-home-assistant/
+sudo chown -R ec2-user:ec2-user /home/centos/home-assistant
 
 # set selinux permissions
-sudo chcon -Rt svirt_sandbox_file_t /home/centos
+sudo chcon -Rt svirt_sandbox_file_t /home/ec2-user
 
 # start docker containers
-cd /home/centos/lightsail-home-assistant/
+cd /home/ec2-user/lightsail-home-assistant/
 /usr/local/bin/docker-compose up -d
 
 # reset ssh permissions
