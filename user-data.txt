@@ -2,7 +2,7 @@
 # install the necessary tools
 sudo yum install docker git unzip -y
 
-# add new group and add centos user
+# add new group and add ec2 user
 sudo groupadd docker
 sudo usermod -aG docker ec2-user
 
@@ -42,8 +42,8 @@ cp /home/ec2-user/lightsail-home-assistant/configuration.yaml /home/ec2-user/hom
 #alias aws='docker run --rm -it amazon/aws-cli'
 
 # set permissions
-sudo chown -R ec2-user:ec2-user /home/centos/lightsail-home-assistant/
-sudo chown -R ec2-user:ec2-user /home/centos/home-assistant
+sudo chown -R ec2-user:ec2-user /home/ec2-user/lightsail-home-assistant/
+sudo chown -R ec2-user:ec2-user /home/ec2-user/home-assistant
 
 # set selinux permissions
 sudo chcon -Rt svirt_sandbox_file_t /home/ec2-user
