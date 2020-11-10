@@ -26,8 +26,8 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - /home/centos/letsencrypt:/config
-      - /home/centos/lightsail-home-assistant/nginx:/config/nginx/site-confs/default
+      - /home/ec2-user/letsencrypt:/config
+      - /home/ec2-user/lightsail-home-assistant/nginx:/config/nginx/site-confs/default
     depends_on:
       - "duckdns"
       - "home-assistant"
@@ -51,7 +51,7 @@ services:
       - SUBDOMAINS=${DUCKDNS_SUBDOMAINS}
       - TOKEN=${DUCKDNS_TOKEN}
     volumes:
-      - /home/centos/duckdns/config:/config #optional
+      - /home/ec2-user/duckdns/config:/config #optional
     restart: unless-stopped
 
 #
@@ -66,7 +66,7 @@ services:
     environment:
       - TZ=${TZ}
     volumes:
-      - /home/centos/home-assistant:/config
+      - /home/ec2-user/home-assistant:/config
     ports:
       - 8123:8123
     networks:
