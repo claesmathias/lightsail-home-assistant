@@ -1,5 +1,10 @@
 ## Version 2018/12/05 - Changelog: https://github.com/linuxserver/docker-letsencrypt/commits/master/root/defaults/default
 
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
 # listening on port 80 disabled by default, remove the "#" signs to enable
 # redirect all traffic to https
 server {
@@ -32,8 +37,13 @@ server {
 
 	# this is where everything cool happens:
 	location / {
-		include /config/nginx/proxy.conf;
 		proxy_pass http://home-assistant:8123;
+		proxy_set_header Host $host;
+		proxy_redirect http:// https://;
+		proxy_http_version 1.1;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection $connection_upgrade;
 	}
 
 }
