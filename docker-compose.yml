@@ -67,7 +67,10 @@ services:
       - TZ=${TZ}
     volumes:
       - /home/ec2-user/home-assistant:/config
-    network_mode: "host"
+    ports:
+      - 8123:8123
+    networks:
+      - app_net
     restart: always
    
 #
