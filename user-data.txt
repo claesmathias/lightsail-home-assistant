@@ -15,7 +15,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 # clone
-cd /home/centos/
+cd /home/ec2-user/
 git clone https://github.com/claesmathias/lightsail-home-assistant.git
 
 # set docker-compose environment variables
