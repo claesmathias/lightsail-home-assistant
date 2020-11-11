@@ -43,6 +43,27 @@ unzip /home/ec2-user/lightsail-home-assistant/hacs.zip -d /home/ec2-user/home-as
 # download Amazoon Root CA for AWS IoT Core MQTT communication for things
 wget https://www.amazontrust.com/repository/AmazonRootCA1.pem -P /home/ec2-user/home-assistant/
 cp /home/ec2-user/lightsail-home-assistant/configuration.yaml /home/ec2-user/home-assistant/
+cp /home/ec2-user/lightsail-home-assistant/policy.json /home/ec2-user/home-assistant/
+
+cd /home/ec2-user/home-assistant/
+
+aws iot create-policy \
+    --policy-name ha-policy \
+    --policy-document file://policy.json
+
+aws iot create-thing \
+    --thing-name ha-thing
+
+certificate_arn=$(aws iot create-keys-and-certificate \
+    --certificate-pem-outfile "ha-ting.cert.pem" \
+    --public-key-outfile "ha-thing.public.key" \
+    --private-key-outfile "ha-thing.private.key" \
+    --query 'certificateArn' \
+    --output text)
+
+aws iot attach-policy \
+    --policy-name ha-policy \
+    --target $certificate_arn
 
 # set permissions
 sudo chown -R ec2-user:ec2-user /home/ec2-user/lightsail-home-assistant/
