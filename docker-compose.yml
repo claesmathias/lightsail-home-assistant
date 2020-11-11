@@ -72,6 +72,7 @@ services:
       - EXTERNAL_URL=${EXTERNAL_URL}
       - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
       - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
+      - MQTT_BROKER=${MQTT_BROKER}
     networks:
       - app_net
     restart: always
