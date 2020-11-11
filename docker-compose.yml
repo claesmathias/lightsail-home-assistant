@@ -69,7 +69,7 @@ services:
     volumes:
       - /home/ec2-user/home-assistant:/config
     environment:
-      - EXTERNAL_URL=${URL}
+      - EXTERNAL_URL=${EXTERNAL_URL}
       - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
       - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
     networks:
