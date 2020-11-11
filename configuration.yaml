@@ -26,7 +26,7 @@ spotify:
 
 # Example configuration.yaml entry
 mqtt:
-  broker: url.amazonaws.com
+  broker: !env_var MQTT_BROKER
   port: 8883
   client_id: home-assistant
   certificate: AmazonRootCA1.pem
