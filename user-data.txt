@@ -19,14 +19,14 @@ cd /home/ec2-user/
 git clone https://github.com/claesmathias/lightsail-home-assistant.git
 
 # set AWS credentials
-cat <<EOF >/home/ec2-user/lightsail-home-assistant/.aws/credentials
+cat <<EOF >/home/ec2-user/.aws/credentials
 [default]
 aws_access_key_id = AKIAIOSFODNN7EXAMPLE
 aws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 EOF
 
 # set AWS region
-cat <<EOF >/home/ec2-user/lightsail-home-assistant/.aws/config
+cat <<EOF >/home/ec2-user/.aws/config
 [default]
 region = eu-west-2
 EOF
