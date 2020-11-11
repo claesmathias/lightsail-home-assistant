@@ -27,7 +27,7 @@ EXTRA_DOMAINS=
 DUCKDNS_SUBDOMAINS=subdomain.duckdns.org
 DUCKDNS_TOKEN=duck-dns-token
 TZ=Europe/Brussels
-EXTERNAL_URL=example.com
+EXTERNAL_URL=https://example.com
 SPOTIFY_CLIENT_ID=
 SPOTIFY_CLIENT_SECRET=
 EOF
