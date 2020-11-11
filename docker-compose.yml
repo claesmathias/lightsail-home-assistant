@@ -32,8 +32,8 @@ services:
       - "duckdns"
       - "home-assistant"
     networks:
-      - app_net:
-        - ipv4_address: 172.20.0.2
+      app_net:
+        ipv4_address: 172.20.0.2
     healthcheck:
      test: ["CMD-SHELL", "curl -f --insecure https://localhost && echo 'OK'"]
      interval: 5s
