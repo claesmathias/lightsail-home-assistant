@@ -47,6 +47,7 @@ TZ=Europe/Brussels
 EXTERNAL_URL=https://example.com
 SPOTIFY_CLIENT_ID=5fe01282e44241328a84e7c5cc169165EXAMPLE
 SPOTIFY_CLIENT_SECRET=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLESECRET
+MQTT_BROKER=$endpoint
 EOF
 
 # install Home Assistant Community Store (HACS)
