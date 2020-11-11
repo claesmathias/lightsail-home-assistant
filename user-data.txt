@@ -28,8 +28,11 @@ DUCKDNS_SUBDOMAINS=subdomain.duckdns.org
 DUCKDNS_TOKEN=duck-dns-token
 TZ=Europe/Brussels
 EXTERNAL_URL=https://example.com
-SPOTIFY_CLIENT_ID=
-SPOTIFY_CLIENT_SECRET=
+SPOTIFY_CLIENT_ID=5fe01282e44241328a84e7c5cc169165EXAMPLE
+SPOTIFY_CLIENT_SECRET=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLESECRET
+AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+AWS_DEFAULT_REGION=eu-west-2
 EOF
 
 # install Home Assistant Community Store (HACS)
@@ -40,9 +43,6 @@ unzip /home/ec2-user/lightsail-home-assistant/hacs.zip -d /home/ec2-user/home-as
 # download Amazoon Root CA for AWS IoT Core MQTT communication for things
 wget https://www.amazontrust.com/repository/AmazonRootCA1.pem -P /home/ec2-user/home-assistant/
 cp /home/ec2-user/lightsail-home-assistant/configuration.yaml /home/ec2-user/home-assistant/
-
-# aws cli
-#alias aws='docker run --rm -it amazon/aws-cli'
 
 # set permissions
 sudo chown -R ec2-user:ec2-user /home/ec2-user/lightsail-home-assistant/
