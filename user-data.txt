@@ -18,6 +18,23 @@ sudo chmod +x /usr/local/bin/docker-compose
 cd /home/ec2-user/
 git clone https://github.com/claesmathias/lightsail-home-assistant.git
 
+# set AWS credentials
+cat <<EOF >/home/ec2-user/lightsail-home-assistant/.aws/credentials
+[default]
+aws_access_key_id = AKIAIOSFODNN7EXAMPLE
+aws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+EOF
+
+# set AWS region
+cat <<EOF >/home/ec2-user/lightsail-home-assistant/.aws/config
+[default]
+region = eu-west-2
+EOF
+
+endpoint=$(aws iot describe-endpoint \
+    --query 'endpointAddress' \
+    --output text)
+
 # set docker-compose environment variables
 cat <<EOF >/home/ec2-user/lightsail-home-assistant/.env
 EMAIL=mail@example.com
@@ -30,9 +47,6 @@ TZ=Europe/Brussels
 EXTERNAL_URL=https://example.com
 SPOTIFY_CLIENT_ID=5fe01282e44241328a84e7c5cc169165EXAMPLE
 SPOTIFY_CLIENT_SECRET=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLESECRET
-AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
-AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-AWS_DEFAULT_REGION=eu-west-2
 EOF
 
 # install Home Assistant Community Store (HACS)
@@ -45,8 +59,6 @@ wget https://www.amazontrust.com/repository/AmazonRootCA1.pem -P /home/ec2-user/
 cp /home/ec2-user/lightsail-home-assistant/configuration.yaml /home/ec2-user/home-assistant/
 cp /home/ec2-user/lightsail-home-assistant/policy.json /home/ec2-user/home-assistant/
 
-cd /home/ec2-user/home-assistant/
-
 aws iot create-policy \
     --policy-name ha-policy \
     --policy-document file://policy.json
@@ -55,9 +67,8 @@ aws iot create-thing \
     --thing-name ha-thing
 
 certificate_arn=$(aws iot create-keys-and-certificate \
-    --certificate-pem-outfile "ha-ting.cert.pem" \
-    --public-key-outfile "ha-thing.public.key" \
-    --private-key-outfile "ha-thing.private.key" \
+    --certificate-pem-outfile "/home/ec2-user/home-assistant/thing-certificate.pem.crt" \
+    --private-key-outfile "/home/ec2-user/home-assistant/thing-private.pem.key" \
     --query 'certificateArn' \
     --output text)
 
