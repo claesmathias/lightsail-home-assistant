@@ -2,6 +2,10 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
+homeassistant:
+  name: Home
+  external_url: !env_var EXTERNAL-URL
+
 # Text to speech
 tts:
   - platform: google_translate
@@ -14,6 +18,11 @@ scene: !include scenes.yaml
 http:  
   use_x_forwarded_for: true
   trusted_proxies: 172.20.0.2
+
+# Example configuration.yaml entry
+spotify:
+  client_id: !env_var SPOTIFY-CLIENT-ID
+  client_secret: !env_var SPOTIFY-CLIENT-SECRET
 
 # Example configuration.yaml entry
 mqtt:
