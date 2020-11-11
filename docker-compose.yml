@@ -68,8 +68,10 @@ services:
       - TZ=${TZ}
     volumes:
       - /home/ec2-user/home-assistant:/config
-#    ports:
-#      - 8123:8123
+    environment:
+      - EXTERNAL_URL=${URL}
+      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
+      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_SECRET}
     networks:
       - app_net
     restart: always
