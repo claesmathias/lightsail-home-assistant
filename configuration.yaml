@@ -4,7 +4,7 @@ default_config:
 
 homeassistant:
   name: Home
-  external_url: !env_var EXTERNAL-URL
+  external_url: !env_var EXTERNAL_URL
 
 # Text to speech
 tts:
@@ -21,8 +21,8 @@ http:
 
 # Example configuration.yaml entry
 spotify:
-  client_id: !env_var SPOTIFY-CLIENT-ID
-  client_secret: !env_var SPOTIFY-CLIENT-SECRET
+  client_id: !env_var SPOTIFY_CLIENT_ID
+  client_secret: !env_var SPOTIFY_CLIENT_SECRET
 
 # Example configuration.yaml entry
 mqtt:
