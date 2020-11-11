@@ -32,7 +32,8 @@ services:
       - "duckdns"
       - "home-assistant"
     networks:
-      - app_net
+      - app_net:
+        - ipv4_address: 172.20.0.2
     healthcheck:
      test: ["CMD-SHELL", "curl -f --insecure https://localhost && echo 'OK'"]
      interval: 5s
@@ -67,8 +68,8 @@ services:
       - TZ=${TZ}
     volumes:
       - /home/ec2-user/home-assistant:/config
-    ports:
-      - 8123:8123
+#    ports:
+#      - 8123:8123
     networks:
       - app_net
     restart: always
@@ -79,6 +80,7 @@ services:
 #
   watchtower:
     image: containrrr/watchtower
+    container_name: watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --cleanup --schedule "0 1 * * sun"
