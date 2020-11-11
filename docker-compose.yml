@@ -71,7 +71,7 @@ services:
     environment:
       - EXTERNAL_URL=${URL}
       - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
-      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_SECRET}
+      - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
     networks:
       - app_net
     restart: always
