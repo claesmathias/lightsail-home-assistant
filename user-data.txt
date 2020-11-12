@@ -18,6 +18,9 @@ sudo chmod +x /usr/local/bin/docker-compose
 cd /home/ec2-user/
 git clone https://github.com/claesmathias/lightsail-home-assistant.git
 
+# create credentials directory
+mkdir /home/ec2-user/.aws/
+
 # set AWS credentials
 cat <<EOF >/home/ec2-user/.aws/credentials
 [default]
