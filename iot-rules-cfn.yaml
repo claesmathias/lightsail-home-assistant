@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: A SQL only IoT republish rule that responds to a siemens logo device
+
+Resources:
+  SQLRepublishTopicRule:
+    Type: AWS::IoT::TopicRule
+    Properties:
+      RuleName: SQLRepublish
+      TopicRulePayload:
+        RuleDisabled: false
+        Sql: SELECT CASE get(state.reported,"I..1:1-1") WHEN '01' THEN 'ON' ELSE 'OFF' END AS state from '$aws/things/siemens-logo/shadow/update' 
+        Actions:
+          - Republish:
+              Topic: office/rgb1/light/status
+              RoleArn: !GetAtt SQLRepublishRole.Arn
+  SQLRepublishRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - sts:AssumeRole
+            Principal:
+              Service:
+                - iot.amazonaws.com
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: iot:Publish
+                Resource: !Join [ "", [ "arn:aws:iot:", !Ref "AWS::Region", ":", !Ref "AWS::AccountId", ":topic/output/*" ] ]
