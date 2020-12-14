@@ -5,13 +5,24 @@ Resources:
   SQLRepublishTopicRule:
     Type: AWS::IoT::TopicRule
     Properties:
-      RuleName: SQLRepublish
+      RuleName: SQLRepublishGet
       TopicRulePayload:
         RuleDisabled: false
         Sql: SELECT CASE get(state.reported,"I..1:1-1") WHEN '01' THEN 'ON' ELSE 'OFF' END AS state from '$aws/things/siemens-logo/shadow/update' 
         Actions:
           - Republish:
               Topic: office/rgb1/light/status
+              RoleArn: !GetAtt SQLRepublishRole.Arn
+  SQLRepublishTopicRule:
+    Type: AWS::IoT::TopicRule
+    Properties:
+      RuleName: SQLRepublishSet
+      TopicRulePayload:
+        RuleDisabled: false
+        Sql: SELECT CASE command WHEN 'ON' THEN {'V..1:0.0-1': '01'} ELSE {'V..1:0.0-1': '00'} END AS state.desired from 'iot/set' 
+        Actions:
+          - Republish:
+              Topic: $$aws/things/siemens-logo/shadow/update
               RoleArn: !GetAtt SQLRepublishRole.Arn
   SQLRepublishRole:
     Type: AWS::IAM::Role
