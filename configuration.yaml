@@ -24,7 +24,7 @@ mqtt:
   broker: !env_var MQTT_BROKER
   port: 8883
   client_id: home-assistant
-  certificate: auto #AmazonRootCA1.pem
+  certificate: VeriSign-Class 3-Public-Primary-Certification-Authority-G5.pem #auto #AmazonRootCA1.pem
   client_key: thing-private.pem.key
   client_cert: thing-certificate.pem.crt
 
