@@ -83,6 +83,11 @@ aws iot attach-policy \
 aws iot attach-thing-principal \
     --thing-name ha-thing \
     --principal $certificate_arn
+    
+certificate_id=${certificate_arn#*/}  
+aws iot update-certificate \
+    --certificate-id $certificate_id \
+    --new-status ACTIVE
 
 # set permissions
 sudo chown -R ec2-user:ec2-user /home/ec2-user/lightsail-home-assistant/
