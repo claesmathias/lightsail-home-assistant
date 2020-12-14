@@ -80,6 +80,10 @@ aws iot attach-policy \
     --policy-name ha-policy \
     --target $certificate_arn
 
+aws iot attach-thing-principal \
+    --thing-name ha-thing \
+    --principal $certificate_arn
+
 # set permissions
 sudo chown -R ec2-user:ec2-user /home/ec2-user/lightsail-home-assistant/
 sudo chown -R ec2-user:ec2-user /home/ec2-user/home-assistant
