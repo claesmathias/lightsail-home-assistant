@@ -59,7 +59,7 @@ mkdir -p /home/ec2-user/home-assistant/custom_components
 unzip /home/ec2-user/lightsail-home-assistant/hacs.zip -d /home/ec2-user/home-assistant/custom_components/hacs
 
 # download Amazoon Root CA for AWS IoT Core MQTT communication for things
-wget https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem -P /home/ec2-user/home-assistant/
+wget https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem -O /home/ec2-user/home-assistant/rootCA.pem
 cp /home/ec2-user/lightsail-home-assistant/configuration.yaml /home/ec2-user/home-assistant/
 cp /home/ec2-user/lightsail-home-assistant/policy.json /home/ec2-user/home-assistant/
 
