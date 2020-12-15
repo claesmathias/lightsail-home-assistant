@@ -65,7 +65,7 @@ cp /home/ec2-user/lightsail-home-assistant/policy.json /home/ec2-user/home-assis
 
 aws iot create-policy \
     --policy-name ha-policy \
-    --policy-document file://policy.json
+    --policy-document file:///home/ec2-user/lightsail-home-assistant/policy.json
 
 aws iot create-thing \
     --thing-name ha-thing
