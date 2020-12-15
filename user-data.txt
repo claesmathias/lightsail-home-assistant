@@ -36,6 +36,7 @@ EOF
 
 endpoint=$(aws iot describe-endpoint \
     --query 'endpointAddress' \
+    --region eu-west-2 \
     --output text)
 
 # set docker-compose environment variables
