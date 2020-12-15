@@ -19,7 +19,7 @@ Resources:
       RuleName: SQLRepublishSet
       TopicRulePayload:
         RuleDisabled: false
-        Sql: SELECT CASE command WHEN 'ON' THEN {'V..1:0.0-1': '01'} ELSE {'V..1:0.0-1': '00'} END AS state.desired from 'office/rgb1/light/switch' 
+        Sql:  SELECT CASE command WHEN 'ON' THEN {'V..1:0.0-1': '01'} ELSE {'V..1:0.0-1': '01'} END AS state.desired from 'office/rgb1/light/switch'
         Actions:
           - Republish:
               Topic: $$aws/things/siemens-logo/shadow/update
