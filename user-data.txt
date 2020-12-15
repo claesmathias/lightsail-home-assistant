@@ -69,7 +69,7 @@ aws iot create-policy \
 aws iot create-thing \
     --thing-name ha-thing
 
-certificate_arn=$(aws iot create-keys-and-certificate \
+certificate_arn=$(sudo aws iot create-keys-and-certificate \
     --certificate-pem-outfile "/home/ec2-user/home-assistant/thing-certificate.pem.crt" \
     --private-key-outfile "/home/ec2-user/home-assistant/thing-private.pem.key" \
     --query 'certificateArn' \
