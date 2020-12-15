@@ -54,12 +54,12 @@ MQTT_BROKER=$endpoint
 EOF
 
 # install Home Assistant Community Store (HACS)
-wget "https://github.com/hacs/integration/releases/latest/download/hacs.zip" -P /home/ec2-user/lightsail-home-assistant
+sudo wget "https://github.com/hacs/integration/releases/latest/download/hacs.zip" -P /home/ec2-user/lightsail-home-assistant
 sudo mkdir -p /home/ec2-user/home-assistant/custom_components
 sudo unzip /home/ec2-user/lightsail-home-assistant/hacs.zip -d /home/ec2-user/home-assistant/custom_components/hacs
 
 # download Amazoon Root CA for AWS IoT Core MQTT communication for things
-wget https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem -O /home/ec2-user/home-assistant/rootCA.pem
+sudo wget https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem -O /home/ec2-user/home-assistant/rootCA.pem
 sudo cp /home/ec2-user/lightsail-home-assistant/configuration.yaml /home/ec2-user/home-assistant/
 
 aws iot create-policy \
