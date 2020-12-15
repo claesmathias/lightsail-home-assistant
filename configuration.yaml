@@ -45,7 +45,24 @@ light:
     payload_on: "{\"command\": \"ON\"}"
     payload_off: "{\"command\": \"OFF\"}"
     optimistic: false
-    
+
+# Example configuration.yaml entry
+switch:
+  - platform: mqtt
+    unique_id: bedroom_switch
+    name: "Bedroom Switch"
+    state_topic: "home/bedroom/switch1"
+    command_topic: "home/bedroom/switch1/set"
+    availability:
+      - topic: "home/bedroom/switch1/available"
+    payload_on: "{\"command\": \"ON\"}"
+    payload_off: "{\"command\": \"OFF\"}"
+    state_on: "ON"
+    state_off: "OFF"
+    optimistic: false
+    qos: 0
+    retain: true
+
 # Example configuration.yaml entry
 sensor:
   - platform: mqtt
