@@ -36,7 +36,7 @@ Resources:
         Actions:
           - CloudwatchLogs:
               LogGroupName: office/rgb1/light/status
-              RoleArn: !GetAtt SQLRepublishRole.Arn
+              RoleArn: !GetAtt IoTTopicRuleRole.Arn
   
   SQLRepublishRole:
     Type: AWS::IAM::Role
@@ -51,7 +51,7 @@ Resources:
               Service:
                 - iot.amazonaws.com
       Policies:
-        - PolicyName: IoTSQLRepublishRole
+        - PolicyName: SQLRepublishRuleRole
           PolicyDocument:
             Version: 2012-10-17
             Statement:
@@ -59,7 +59,7 @@ Resources:
                 Action: iot:Publish
                 Resource: !Join [ "", [ "arn:aws:iot:", !Ref "AWS::Region", ":", !Ref "AWS::AccountId", ":topic/output/*" ] ]
                 
-    TopicRuleRole:
+  TopicRuleRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
