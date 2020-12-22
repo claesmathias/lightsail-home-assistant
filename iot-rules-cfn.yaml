@@ -23,7 +23,7 @@ Resources:
         Sql:  SELECT CASE command WHEN 'ON' THEN {'V..1:0.0-1': '01'} ELSE {'V..1:0.0-1': '01'} END AS state.desired from 'office/rgb1/light/switch'
         Actions:
           - Republish:
-              Topic: $$aws/things/siemens-logo/shadow/update
+              Topic: '$$aws/things/siemens-logo/shadow/update'
               RoleArn: !GetAtt SQLRepublishRole.Arn
   
   TopicRulePayload:
