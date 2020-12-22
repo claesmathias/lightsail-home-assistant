@@ -29,13 +29,13 @@ Resources:
   TopicRulePayload:
     Type: AWS::IoT::TopicRule
     Properties:
-      RuleName: siemens-logo-logs
+      RuleName: SiemensLogoLoggingRule
       TopicRulePayload:
         RuleDisabled: false
         Sql: SELECT * from '$aws/things/siemens-logo/shadow/update' 
         Actions:
           - CloudwatchLogs:
-              LogGroupName: office/rgb1/light/status
+              LogGroupName: iot-siemens-logo-logs
               RoleArn: !GetAtt IoTTopicRuleRole.Arn
   
   SQLRepublishRole:
