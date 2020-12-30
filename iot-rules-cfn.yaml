@@ -9,6 +9,7 @@ Resources:
       TopicRulePayload:
         RuleDisabled: false
         Sql: SELECT CASE get(state.reported,"I..1:1-1") WHEN '01' THEN 'ON' ELSE 'OFF' END AS state from '$aws/things/siemens-logo/shadow/update'
+        AwsIotSqlVersion: 2016-03-23
         Actions:
           - Republish:
               Topic: office/rgb1/light/status
@@ -20,7 +21,8 @@ Resources:
       RuleName: OfficeLightSwitchRule
       TopicRulePayload:
         RuleDisabled: false
-        Sql:  SELECT CASE command WHEN 'ON' THEN {'V..1:0.0-1': '01'} ELSE {'V..1:0.0-1': '01'} END AS state.desired from 'office/rgb1/light/switch'"
+        AwsIotSqlVersion: 2016-03-23
+        Sql: !Join [ " ", [ "SELECT", "{'V..1:0.0-1': '01'}", "AS state.desired from 'office/rgb1/light/switch'"] ]
         Actions:
           - Republish:
               Topic: $$aws/things/siemens-logo/shadow/update
