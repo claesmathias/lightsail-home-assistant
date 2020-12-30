@@ -42,8 +42,6 @@ light:
     brightness_value_template: "{{ value_json.brightness }}"
     rgb_value_template: "{{ value_json.rgb | join(',') }}"
     qos: 0
-    payload_on: "ON"
-    payload_off: "OFF"
     optimistic: false
 
 # Example configuration.yaml entry
