@@ -13,3 +13,7 @@ You can find the script in `/var/lib/cloud/instance/user-data.txt` on the instan
 ```
 aws lightsail open-instance-public-ports --port-info fromPort=443,toPort=443,protocol=TCP --instance-name ha-vm
 ```
+## Deploy IoT Republish rules via CloudFormation
+```
+aws cloudformation deploy --template-file iot-rules-cfn.yaml --stack-name iot-stack --capabilities CAPABILITY_IAM
+```
