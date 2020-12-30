@@ -17,3 +17,6 @@ aws lightsail open-instance-public-ports --port-info fromPort=443,toPort=443,pro
 ```
 aws cloudformation deploy --template-file iot-rules-cfn.yaml --stack-name iot-stack --capabilities CAPABILITY_IAM
 ```
+
+## Monitoring IoT
+https://docs.aws.amazon.com/iot/latest/developerguide/configure-logging.html
