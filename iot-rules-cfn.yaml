@@ -8,7 +8,7 @@ Resources:
       RuleName: OfficeLightStatusRule
       TopicRulePayload:
         RuleDisabled: false
-        Sql: SELECT CASE get(state.reported,"I..1:1-1") WHEN '01' THEN 'ON' ELSE 'OFF' END AS state from '$aws/things/siemens-logo/shadow/update'
+        Sql: SELECT CASE get(state.reported,"Q..1:1-1") WHEN '01' THEN 'ON' ELSE 'OFF' END AS state from '$aws/things/siemens-logo/shadow/update'
         AwsIotSqlVersion: 2016-03-23
         Actions:
           - Republish:
@@ -27,7 +27,7 @@ Resources:
           - Republish:
               Topic: $$aws/things/siemens-logo/shadow/update
               RoleArn: !GetAtt SQLRepublishRole.Arn
-  
+
   SQLRepublishRole:
     Type: AWS::IAM::Role
     Properties:
